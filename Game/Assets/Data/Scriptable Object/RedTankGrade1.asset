@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cf1c536267188848a931997516155f2, type: 3}
+  m_Name: RedTankGrade1
+  m_EditorClassIdentifier: 
+  Up:
+  - {fileID: 2909458258800530498, guid: 585b6c36189c0ec4e93663526eda6cc3, type: 3}
+  - {fileID: 6266405938624046850, guid: 585b6c36189c0ec4e93663526eda6cc3, type: 3}
+  Down:
+  - {fileID: -8637928809046126964, guid: 585b6c36189c0ec4e93663526eda6cc3, type: 3}
+  - {fileID: 3027888696702014469, guid: 585b6c36189c0ec4e93663526eda6cc3, type: 3}
+  Left:
+  - {fileID: 114041575782168934, guid: 585b6c36189c0ec4e93663526eda6cc3, type: 3}
+  - {fileID: 6814114978095795368, guid: 585b6c36189c0ec4e93663526eda6cc3, type: 3}
+  Right:
+  - {fileID: 114431900800630296, guid: 585b6c36189c0ec4e93663526eda6cc3, type: 3}
+  - {fileID: 6582300073358416353, guid: 585b6c36189c0ec4e93663526eda6cc3, type: 3}
