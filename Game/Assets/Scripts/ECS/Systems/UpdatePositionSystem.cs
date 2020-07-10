@@ -12,10 +12,7 @@ public sealed class UpdatePositionSystem : UpdateSystem
 
     public override void OnAwake()
     {
-        filter = World.Filter.
-            With<TransformComponent>().
-            With<PositionComponent>().
-            With<MoveComponent>();
+        filter = World.Filter.With<TransformComponent>().With<PositionComponent>();
     }
 
 
@@ -27,17 +24,13 @@ public sealed class UpdatePositionSystem : UpdateSystem
     {
         var positions = filter.Select<PositionComponent>();
         var transforms = filter.Select<TransformComponent>();
-        var directions = filter.Select<MoveComponent>();
 
         for (int i = 0; i < filter.Length; i++)
         {
             ref var position = ref positions.GetComponent(i);
             ref var transform = ref transforms.GetComponent(i);
-            ref var direction = ref directions.GetComponent(i);
 
             transform.Transform.position = position.Position;
-            //var angle = Mathf.Atan2(direction.Direction.y, direction.Direction.x) * Mathf.Rad2Deg; 
-           // transform.Transform.localEulerAngles = new Vector3(0, 0, angle);
         }
     }
 }

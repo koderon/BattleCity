@@ -6,8 +6,16 @@ using Unity.IL2CPP.CompilerServices;
 [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
 [Il2CppSetOption(Option.DivideByZeroChecks, false)]
 [System.Serializable]
-public struct InputComponent : IComponent
+public struct MoveUnitComponent : IComponent
 {
-    public Vector2 Direction;
-    public bool IsNeedShoot;
+    public bool IsNeedCheckCollision;
+
+    public float MaxOffset;
+
+    public Vector3 Direction;
+    public Vector3 Rotation;
+
+    public float Speed;
+
+    public float MoveOffset;
 }

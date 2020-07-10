@@ -12,13 +12,12 @@ public sealed class InputSystem : UpdateSystem
 
     public override void OnAwake()
     {
-        filter = World.Filter.With<InputComponent>().With<MoveComponent>();
+        filter = World.Filter.With<InputComponent>();
     }
 
     public override void OnUpdate(float deltaTime)
     {
         var inputs = filter.Select<InputComponent>();
-        var moves = filter.Select<MoveComponent>();
 
         var x = Input.GetAxis("Horizontal");
         var y = Input.GetAxis("Vertical");
@@ -34,16 +33,12 @@ public sealed class InputSystem : UpdateSystem
                 direction = y > 0f ? Vector2.up : Vector2.down;
         }
 
-        /*if (direction.magnitude >= 0.5f)
-            Debug.Log(direction + " mag := " + direction.magnitude);*/
+        if (direction.magnitude >= 0.5f)
+            Debug.Log(direction + " mag := " + direction.magnitude);
 
         for (int i = 0; i < filter.Length; i++) 
         {
             ref var input = ref inputs.GetComponent(i);
-            ref var move = ref moves.GetComponent(i);
-
-            if(move.MoveOffset > 0)
-                continue;
 
             input.Direction = direction;
         }

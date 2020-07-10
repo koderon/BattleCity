@@ -13,13 +13,13 @@ public sealed class SpriteAnimationSystem : UpdateSystem
 
     public override void OnAwake()
     {
-        filter = World.Filter.With<MoveComponent>().With<SpriteAnimationComponent>();
+        filter = World.Filter.With<MoveUnitComponent>().With<SpriteAnimationComponent>();
 
         Init();
     }
 
     public override void OnUpdate(float deltaTime) {
-        var moves = filter.Select<MoveComponent>();
+        var moves = filter.Select<MoveUnitComponent>();
         var animations = filter.Select<SpriteAnimationComponent>();
 
         for (int i = 0; i < filter.Length; i++)
@@ -58,7 +58,7 @@ public sealed class SpriteAnimationSystem : UpdateSystem
 
     private void Init()
     {
-        var moves = filter.Select<MoveComponent>();
+        var moves = filter.Select<MoveUnitComponent>();
         var animations = filter.Select<SpriteAnimationComponent>();
 
         for (int i = 0; i < filter.Length; i++)

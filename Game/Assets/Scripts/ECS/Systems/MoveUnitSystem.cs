@@ -14,11 +14,11 @@ public sealed class MoveUnitSystem : UpdateSystem
     public override void OnAwake()
     {
         filter = World.Filter
-            .With<MoveComponent>()
+            .With<MoveUnitComponent>()
             .With<PositionComponent>()
             .With<ColliderComponent>();
 
-        colliderFilter = World.Filter.With<ColliderComponent>();
+        colliderFilter = World.Filter.With<ColliderComponent>().Without<BulletComponent>();
     }
 
     public override void OnUpdate(float deltaTime) {
@@ -28,21 +28,21 @@ public sealed class MoveUnitSystem : UpdateSystem
     private void UpdateMoving(float deltaTime)
     {
         var positions = filter.Select<PositionComponent>();
-        var moves = filter.Select<MoveComponent>();
-        var colliders = filter.Select<ColliderComponent>();
+        var moves = filter.Select<MoveUnitComponent>();
+        //var colliders = filter.Select<ColliderComponent>();
 
        
         for (int i = 0; i < filter.Length; i++)
         {
             ref var position = ref positions.GetComponent(i);
             ref var move = ref moves.GetComponent(i);
-            ref var collider = ref colliders.GetComponent(i);
-            var id = filter.GetEntity(i).ID;
-            
-            if (move.MoveOffset <= 0)
+            //ref var collider = ref colliders.GetComponent(i);
+            //var id = filter.GetEntity(i).ID;
+
+            if (move.MoveOffset <= 0 || move.IsNeedCheckCollision)
                 continue;
 
-            CheckCollision(id, ref move, ref collider);
+            //CheckCollision(id, ref move, ref collider);
 
             var offset = deltaTime * move.Speed;
             var direction = move.Direction;
@@ -57,7 +57,7 @@ public sealed class MoveUnitSystem : UpdateSystem
         }
     }
 
-    private void CheckCollision(int id, ref MoveComponent move, ref ColliderComponent colliderComponent)
+    private void CheckCollision(int id, ref MoveUnitComponent move, ref ColliderComponent colliderComponent)
     {
         if (!move.IsNeedCheckCollision)
             return;
@@ -84,7 +84,7 @@ public sealed class MoveUnitSystem : UpdateSystem
         }
     }
 
-    private void ResetMove(ref MoveComponent move)
+    private void ResetMove(ref MoveUnitComponent move)
     {
         move.MoveOffset = 0;
         move.Direction = Vector3.zero;

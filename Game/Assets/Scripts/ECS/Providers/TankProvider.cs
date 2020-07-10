@@ -1,13 +1,8 @@
 ﻿using Morpeh;
-using UnityEngine;
 using Unity.IL2CPP.CompilerServices;
 
 [Il2CppSetOption(Option.NullChecks, false)]
 [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
 [Il2CppSetOption(Option.DivideByZeroChecks, false)]
-[System.Serializable]
-public struct InputComponent : IComponent
-{
-    public Vector2 Direction;
-    public bool IsNeedShoot;
+public sealed class TankProvider : MonoProvider<TankComponent> {
 }

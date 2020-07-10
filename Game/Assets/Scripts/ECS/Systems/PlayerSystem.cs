@@ -12,7 +12,7 @@ public sealed class PlayerSystem : UpdateSystem
 
     public override void OnAwake()
     {
-        filter = World.Filter.With<MoveComponent>().With<InputComponent>().With<TransformComponent>();
+        filter = World.Filter.With<TankComponent>().With<InputComponent>();
     }
 
     public override void OnUpdate(float deltaTime) {
@@ -22,15 +22,20 @@ public sealed class PlayerSystem : UpdateSystem
     private void UpdatePlayer(float deltaTime)
     {
         var inputs = filter.Select<InputComponent>();
-        var moves = filter.Select<MoveComponent>();
-        var transforms = filter.Select<TransformComponent>();
+        var tankComponents = filter.Select<TankComponent>();
 
         for (int i = 0; i < filter.Length; i++)
         {
-            ref var move = ref moves.GetComponent(i);
+            ref var tank = ref tankComponents.GetComponent(i);
             ref var input = ref inputs.GetComponent(i);
-            ref var transform = ref transforms.GetComponent(i);
 
+            input.IsNeedShoot = true;
+            if (input.IsNeedShoot && !tank.IsNeedShot)
+                tank.Shot();
+            
+            tank.DirectionToMove = input.Direction;
+
+            /*
             var offset = move.Speed * deltaTime;
 
             if(move.MoveOffset > 0 || input.Direction == Vector2.zero)
@@ -41,7 +46,7 @@ public sealed class PlayerSystem : UpdateSystem
             move.IsNeedCheckCollision = true;
             move.Direction = input.Direction;
             move.Rotation = move.Direction;
-            move.MoveOffset = move.MaxOffset;
+            move.MoveOffset = move.MaxOffset;*/
         }
     }
 }
