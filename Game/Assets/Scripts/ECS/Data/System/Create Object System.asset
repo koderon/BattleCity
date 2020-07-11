@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1e99abfda7f99342bde24e85cf74277, type: 3}
   m_Name: Create Object System
   m_EditorClassIdentifier: 
+  BulletPrefab: {fileID: 8502441497092197455, guid: d405968038683e74b86d13012ab3b7c5,
+    type: 3}
   CreateBulletEvent: {fileID: 11400000, guid: a9ca00bc9991f3544b60bdc93b519210, type: 2}

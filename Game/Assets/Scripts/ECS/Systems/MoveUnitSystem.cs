@@ -9,7 +9,7 @@ using Unity.IL2CPP.CompilerServices;
 public sealed class MoveUnitSystem : UpdateSystem
 {
     private Filter filter;
-    private Filter colliderFilter;
+    //private Filter colliderFilter;
 
     public override void OnAwake()
     {
@@ -18,7 +18,7 @@ public sealed class MoveUnitSystem : UpdateSystem
             .With<PositionComponent>()
             .With<ColliderComponent>();
 
-        colliderFilter = World.Filter.With<ColliderComponent>().Without<BulletComponent>();
+        //colliderFilter = World.Filter.With<ColliderComponent>().Without<BulletComponent>();
     }
 
     public override void OnUpdate(float deltaTime) {
@@ -57,6 +57,7 @@ public sealed class MoveUnitSystem : UpdateSystem
         }
     }
 
+    /*
     private void CheckCollision(int id, ref MoveUnitComponent move, ref ColliderComponent colliderComponent)
     {
         if (!move.IsNeedCheckCollision)
@@ -83,6 +84,7 @@ public sealed class MoveUnitSystem : UpdateSystem
             }
         }
     }
+    */
 
     private void ResetMove(ref MoveUnitComponent move)
     {

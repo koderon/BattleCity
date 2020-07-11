@@ -33,8 +33,9 @@ public sealed class InputSystem : UpdateSystem
                 direction = y > 0f ? Vector2.up : Vector2.down;
         }
 
+        /*
         if (direction.magnitude >= 0.5f)
-            Debug.Log(direction + " mag := " + direction.magnitude);
+            Debug.Log(direction + " mag := " + direction.magnitude);*/
 
         for (int i = 0; i < filter.Length; i++) 
         {

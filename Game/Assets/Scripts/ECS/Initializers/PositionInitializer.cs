@@ -9,18 +9,21 @@ using Unity.IL2CPP.CompilerServices;
 public sealed class PositionInitializer : Initializer
 {
     private Filter filter;
+    private Filter tankFilter;
 
     public override void OnAwake()
     {
         filter = World.Filter.With<TransformComponent>().With<PositionComponent>();
+        tankFilter = World.Filter.With<TankComponent>().With<MoveUnitComponent>();
 
-        Init();
+        InitPositions();
+        InitTanks();
     }
 
     public override void Dispose() {
     }
 
-    public void Init()
+    public void InitPositions()
     {
         var transforms = filter.Select<TransformComponent>();
         var positions = filter.Select<PositionComponent>();
@@ -32,5 +35,18 @@ public sealed class PositionInitializer : Initializer
 
             position.Position = transform.Transform.position;
         }
+    }
+
+    private void InitTanks()
+    {
+        var moves = tankFilter.Select<MoveUnitComponent>();
+
+        for (int i = 0; i < tankFilter.Length; i++)
+        {
+            ref var move = ref moves.GetComponent(i);
+
+            move.Rotation = Vector3.up;
+        }
+
     }
 }

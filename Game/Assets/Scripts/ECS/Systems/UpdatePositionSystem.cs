@@ -1,4 +1,5 @@
-﻿using Morpeh;
+﻿using System;
+using Morpeh;
 using UnityEngine;
 using Unity.IL2CPP.CompilerServices;
 
@@ -29,6 +30,13 @@ public sealed class UpdatePositionSystem : UpdateSystem
         {
             ref var position = ref positions.GetComponent(i);
             ref var transform = ref transforms.GetComponent(i);
+
+            if (transform.Transform == null)
+            {
+                Debug.LogError("Transform Provider is Not Inicilizations");
+                continue;
+            }
+
 
             transform.Transform.position = position.Position;
         }
