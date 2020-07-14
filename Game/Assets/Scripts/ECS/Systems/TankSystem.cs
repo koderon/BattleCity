@@ -54,12 +54,6 @@ public sealed class TankSystem : UpdateSystem
         }
     }
 
-    public class BulletData : ScriptableObject
-    {
-        public int IdTank;
-        public String TextMessage;
-    }
-
     public void CreateEventToCreateBullet(int id)
     {
         var bulletData = new BulletData();

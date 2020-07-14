@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Morpeh;
 using Morpeh.Globals;
 using UnityEngine;
@@ -15,6 +16,8 @@ public sealed class CreateObjectSystem : UpdateSystem
     public GlobalEventObject CreateBulletEvent;
 
     private Filter tankFilter;
+
+    private List<PBullet> pbullets = new List<PBullet>();
 
     public override void OnAwake()
     {
@@ -36,7 +39,7 @@ public sealed class CreateObjectSystem : UpdateSystem
 
         foreach (var o in data)
         {
-            var model = (TankSystem.BulletData) o;
+            var model = (BulletData) o;
             /*if(model != null)
                 Debug.Log("data := " + model.TextMessage);*/
 
@@ -44,7 +47,7 @@ public sealed class CreateObjectSystem : UpdateSystem
         }
     }
 
-    private void CreateBullet(TankSystem.BulletData data)
+    private void CreateBullet(BulletData data)
     {
         var tanks = tankFilter.Select<TankComponent>();
         var moves = tankFilter.Select<MoveUnitComponent>();
@@ -54,20 +57,48 @@ public sealed class CreateObjectSystem : UpdateSystem
 
         var tank = tanks.GetComponent(index);
         var move = moves.GetComponent(index);
+
+        //var pbullet = GetBullet();
         
-        var bullet = Helper.Create<BulletProvider>(BulletPrefab);
+        var pbullet = Helper.Create<BulletProvider>(BulletPrefab);
 
         ref var tankPosition = ref tankEntity.GetComponent<PositionComponent>();
         ref var typeTank = ref tankEntity.GetComponent<ObjectTypeComponent>();
 
-        ref var bulletComponent = ref bullet.Entity.GetComponent<BulletComponent>();
-        ref var objectType = ref bullet.Entity.GetComponent<ObjectTypeComponent>();
-        ref var position = ref bullet.Entity.GetComponent<PositionComponent>();
+        ref var bulletComponent = ref pbullet.Entity.GetComponent<BulletComponent>();
+        ref var position = ref pbullet.Entity.GetComponent<PositionComponent>();
 
         bulletComponent.Direction = move.Rotation;
-        objectType.ObjectType = typeTank.ObjectType;
+        bulletComponent.ObjectType = typeTank.ObjectType;
 
-        position.Position = tankPosition.Position + bulletComponent.Direction * 1.2f;
-        bullet.transform.position = position.Position;
+        position.Position = tankPosition.Position + bulletComponent.Direction * 1.5f;
+        //bullet.transform.position = position.Position;
+    }
+
+    public class PBullet
+    {
+        public IEntity Entity;
+    }
+
+    public PBullet GetBullet()
+    {
+        PBullet pbullet = null;
+
+        foreach (var b in pbullets)
+        {
+            var bulletComponent = b.Entity.GetComponent<BulletComponent>();
+            if (bulletComponent.Direction == Vector3.zero)
+                return b;
+        }
+
+        var bullet = Helper.Create<BulletProvider>(BulletPrefab);
+        pbullet = new PBullet()
+        {
+            Entity = bullet.Entity,
+        };
+
+        pbullets.Add(pbullet);
+
+        return pbullet;
     }
 }

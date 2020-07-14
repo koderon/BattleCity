@@ -5,6 +5,8 @@ public enum EObjectType
 
     Brick,
 
+    Bullet,
+
     FriendTank,
     EnemyTank,
 }

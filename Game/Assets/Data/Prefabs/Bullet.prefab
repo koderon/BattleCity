@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 8502441497092197445}
   - component: {fileID: 8502441497092197444}
   - component: {fileID: 1604797839723568660}
+  - component: {fileID: -2841906012473660694}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -131,6 +132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serializedData:
+    ObjectType: 0
     Speed: 5
     Damage: 1
     Direction: {x: 0, y: 0, z: 0}
@@ -205,4 +207,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serializedData:
-    ObjectType: 0
+    ObjectType: 2
+--- !u!114 &-2841906012473660694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8502441497092197455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53a7c9195532e2e42b1d591aaff1122d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializedData:
+    HealthPoint: 0.1

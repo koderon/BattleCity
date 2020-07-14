@@ -8,6 +8,8 @@ using Unity.IL2CPP.CompilerServices;
 [System.Serializable]
 public struct BulletComponent : IComponent
 {
+    public EObjectType ObjectType;
+
     public float Speed;
 
     public float Damage;
